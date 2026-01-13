@@ -9,64 +9,32 @@ import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity//usando o Entity ele transforma toda minha classe em uma entidade do banco de dados
+@Entity//Using the annotation "Entity" he transforms the my class in a entity of my database
 @Table(name = "tb_cadastro")
+
 /*
-Usando essas 3 anotações do lombok ele crial e atualiza automaticamente os contrutore e getrs e seters, usamos o "data" para os Getters e Setter.
-Já o "NoArgsConstuctor" usamos para criar construtores "vazios" e o "AllArgsConstructors" Para os construtores com todos os argumentos
+Using these 3 annotation of lombok he to creates and automatically updates the constructors and gettrs and setters, Using the "data" for the Getters e Setter.
+Already the "NoArgsConstuctor" we use for to create constructors "empty" and the "AllArgsConstructors" for the constuctors with all the Args
  */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioModel {
 
-    @Id// o id serve pra dizer que o atributo abaixo dele vai receber o id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)// usa-se o generatedValue pra dizer qual vai ser a forma de gerar o id, aqui eu estou dizendo que irar ser sequencial
-    private Long id;//quando for trabalhar com banco de dados deve-se colocar um id para cada cadastro, estou usando o long ao inves de int caso o banco de dados seja gigantesco
-    private String nome;
+    @Id// the id he serves for say that the attribute below it will recive the id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// Using the generatedValue for say wich on will be the form of to generate the id, here i'm saying that the will be sequential
+    private Long id;//when you go to work of database one must place a id for each register, i'm using the long in advance of int case the database be long
+    private String name;
+    @Column(unique = true)// this annotation serves for each register to be unique, so 2 peoples cannot have the same email
     private String email;
-    private int idade;
+    private int age;
 
-    //usando a anotação ManyToOne você diz pro java que apena 1 chamado sera vinculado por usuario
+    //using the annotation ManyToOne you say for java if only 1 called will be linked by user
     @ManyToOne
-    @JoinColumn(name = "chamados_id")//essa é nossa chave estrangeira ela serve pra conectar 2 tabelas ou mais
+    @JoinColumn(name = "chamados_id")//this is our foreign key she serves to connect 2 tables or more
     private List <ChamadoModel> chamados;
 
 
-    public UsuarioModel() {
-    }
 
-    public UsuarioModel(String nome, String email, int idade) {
-        this.nome = nome;
-        this.email = email;
-        this.idade = idade;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }

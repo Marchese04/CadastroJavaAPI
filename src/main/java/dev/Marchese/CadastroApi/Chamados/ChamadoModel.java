@@ -16,11 +16,11 @@ public class ChamadoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String descricao;
+    private String name;
+    private String description;
 
-    //Usando o OneToMany, você diz pro java que esse objeto recebera 1 ou mais usuarios para cada chamado
-    @OneToMany(mappedBy = "chamados")//quando o OneToMany for usado você deve mapealo com onde o ManyToOne esta sendo usado, no meu casdo é na lista de chamados
+    //Using the OneToMany, you say the java that this object recive 1 our more users for each call
+    @OneToMany(mappedBy = "chamados")//if the OneToMany is used you must mapalo with where the ManyToOne this is being used, im my case it is in lisT off called
     private UsuarioModel usuario;
 
 }
