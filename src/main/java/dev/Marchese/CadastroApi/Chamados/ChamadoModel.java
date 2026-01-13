@@ -2,9 +2,15 @@ package dev.Marchese.CadastroApi.Chamados;
 
 import dev.Marchese.CadastroApi.Usuario.UsuarioModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "tb_chamados")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChamadoModel {
 
     @Id

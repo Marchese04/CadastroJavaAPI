@@ -2,12 +2,22 @@ package dev.Marchese.CadastroApi.Usuario;
 
 import dev.Marchese.CadastroApi.Chamados.ChamadoModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity//usando o Entity ele transforma toda minha classe em uma entidade do banco de dados
 @Table(name = "tb_cadastro")
+/*
+Usando essas 3 anotações do lombok ele crial e atualiza automaticamente os contrutore e getrs e seters, usamos o "data" para os Getters e Setter.
+Já o "NoArgsConstuctor" usamos para criar construtores "vazios" e o "AllArgsConstructors" Para os construtores com todos os argumentos
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioModel {
 
     @Id// o id serve pra dizer que o atributo abaixo dele vai receber o id
