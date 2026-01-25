@@ -24,11 +24,16 @@ public class UsuarioModel {
 
     @Id// the id he serves for say that the attribute below it will recive the id
     @GeneratedValue(strategy = GenerationType.IDENTITY)// Using the generatedValue for say wich on will be the form of to generate the id, here i'm saying that the will be sequential
+    @Column(name = "id")
     private Long id;//when you go to work of database one must place a id for each register, i'm using the long in advance of int case the database be long
+    @Column(name = "Name")
     private String name;
     @Column(unique = true)// this annotation serves for each register to be unique, so 2 peoples cannot have the same email
     private String email;
+    @Column(name = "age")
     private int age;
+    @Column(name = "img_url")
+    private String imgUrl;
 
     //using the annotation ManyToOne you say for java if only 1 called will be linked by user
     @ManyToOne
