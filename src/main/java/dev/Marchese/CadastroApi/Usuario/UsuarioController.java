@@ -32,9 +32,9 @@ public class UsuarioController {
     }
 
     //Show users by id
-    @GetMapping("/ShowUserId")
-    public String showUserId(){
-        return "This user with id";
+    @GetMapping("/ShowUser/{id}")
+    public UsuarioModel ShowUserId(@PathVariable Long id){
+        return usuarioService.showUserId(id);
     }
 
     //Change user data
