@@ -21,8 +21,8 @@ public class UsuarioController {
 
     //Creat user
     @PostMapping("/CreatUser")
-    public String CreateUser (){
-        return "Creat user";
+    public UsuarioModel createUser (@RequestBody UsuarioModel usuario){
+        return usuarioService.creatUser(usuario);
     }
 
     //Show all users
@@ -33,7 +33,7 @@ public class UsuarioController {
 
     //Show users by id
     @GetMapping("/ShowUser/{id}")
-    public UsuarioModel ShowUserId(@PathVariable Long id){
+    public UsuarioModel showUserId(@PathVariable Long id){
         return usuarioService.showUserId(id);
     }
 
