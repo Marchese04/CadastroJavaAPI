@@ -20,33 +20,31 @@ public class UsuarioController {
     }
 
     //Creat user
-    @PostMapping("/CreatUser")
+    @PostMapping("/creatUser")
     public UsuarioModel createUser (@RequestBody UsuarioModel usuario){
         return usuarioService.creatUser(usuario);
     }
 
     //Show all users
-    @GetMapping("/ShowUser")
+    @GetMapping("/showUser")
     public List<UsuarioModel> showUsers(){
         return usuarioService.showUser();
     }
 
     //Show users by id
-    @GetMapping("/ShowUser/{id}")
+    @GetMapping("/showUser/{id}")
     public UsuarioModel showUserId(@PathVariable Long id){
         return usuarioService.showUserId(id);
     }
 
     //Change user data
-    @PutMapping("/changeUser")
-    public String changeUser(){
-        return "Choose the user you want to change";
-    }
+    @PutMapping("/changeUser/{id}")
+    public UsuarioModel changeUser(@PathVariable Long id, @RequestBody UsuarioModel updatedUser){return usuarioService.chengeUser(id, updatedUser);}
 
     //Delete user by id
-    @DeleteMapping("/deleteUser")
-    public String deleteUser(){
-        return "User deleted successfully ";
+    @DeleteMapping("/deleteUser/{id}")
+    public void deleteUser(@PathVariable Long id){
+        usuarioService.deleteUser(id);
     }
 
 }
