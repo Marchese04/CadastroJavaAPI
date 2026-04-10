@@ -12,11 +12,12 @@ public class UsuarioService {
 
     private UsuarioRepository usuarioRepository;//initializing the layer UserRepository to be able to use her methods
     private Object usuario;
+    private UsuarioMapper usuarioMapper;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioMapper = usuarioMapper;
     }
-
 
     public List <UsuarioModel> showUser(){//Creat a method to be able for list all user in my database
         return usuarioRepository.findAll();
@@ -27,8 +28,10 @@ public class UsuarioService {
                 return usuarioModel.orElse(null);
     }
 
-    public UsuarioModel creatUser(UsuarioModel usuario){
-        return usuarioRepository.save(usuario);
+    public UsuarioDTO creatUser(UsuarioDTO usuarioDTO){
+        UsuarioModel usuario = usuarioMapper.map(usuarioDTO);
+        usuario = usuarioRepository.save(usuario);
+        return usuarioMapper.map(usuario);
     }
 
     //for the delete method, this method does not need to return anything, this method needs to be void

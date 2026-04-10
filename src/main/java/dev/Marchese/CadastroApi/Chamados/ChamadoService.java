@@ -10,8 +10,12 @@ public class ChamadoService {
 
     private ChamadoRepository chamadoRepository;
     private Object Chamado;
+    private ChamadoMapper chamadoMapper;
 
-    public ChamadoService(ChamadoRepository chamadoRepository){this.chamadoRepository = chamadoRepository; }
+    public ChamadoService(ChamadoRepository chamadoRepository, ChamadoMapper chamadoMapper) {
+        this.chamadoRepository = chamadoRepository;
+        this.chamadoMapper = chamadoMapper;
+    }
 
     public List<ChamadoModel> showCalls(){return chamadoRepository.findAll();}
 
