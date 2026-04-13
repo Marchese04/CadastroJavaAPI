@@ -27,19 +27,19 @@ public class UsuarioController {
 
     //Show all users
     @GetMapping("/showUser")
-    public List<UsuarioModel> showUsers(){
+    public List<UsuarioDTO> showUsers(){
         return usuarioService.showUser();
     }
 
     //Show users by id
     @GetMapping("/showUser/{id}")
-    public UsuarioModel showUserId(@PathVariable Long id){
+    public UsuarioDTO showUserId(@PathVariable Long id){
         return usuarioService.showUserId(id);
     }
 
     //Change user data
     @PutMapping("/changeUser/{id}")
-    public UsuarioModel changeUser(@PathVariable Long id, @RequestBody UsuarioModel updatedUser){return usuarioService.chengeUser(id, updatedUser);}
+    public UsuarioDTO changeUser(@PathVariable Long id, @RequestBody UsuarioDTO updatedUser){return usuarioService.chengeUser(id, updatedUser);}
 
     //Delete user by id
     @DeleteMapping("/deleteUser/{id}")

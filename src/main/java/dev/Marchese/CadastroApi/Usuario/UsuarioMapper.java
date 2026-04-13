@@ -3,7 +3,7 @@ package dev.Marchese.CadastroApi.Usuario;
 import org.springframework.stereotype.Component;
 
 @Component
-//basically Mapper will map the Usuario model to the Usuario DTO and also to the contrary Usuario DTO
+//basically Mapper will map the Usuario model to the Usuario DTO and also to the contrary Usuario DTO. this is all being mapped manually
 public class UsuarioMapper {
 
     public UsuarioModel map(UsuarioDTO usuarioDTO){

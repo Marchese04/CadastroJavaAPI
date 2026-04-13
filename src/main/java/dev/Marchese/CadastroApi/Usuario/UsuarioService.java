@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
@@ -19,13 +20,16 @@ public class UsuarioService {
         this.usuarioMapper = usuarioMapper;
     }
 
-    public List <UsuarioModel> showUser(){//Creat a method to be able for list all user in my database
-        return usuarioRepository.findAll();
+    public List <UsuarioDTO> showUser(){
+        List<UsuarioModel> usuario = usuarioRepository.findAll();
+        return usuario.stream()
+                .map(usuarioMapper::map)
+                .collect(Collectors.toList());
     }
 
-    public UsuarioModel showUserId(Long id){
-        Optional<UsuarioModel> usuarioModel = usuarioRepository.findById(id);
-                return usuarioModel.orElse(null);
+    public UsuarioDTO showUserId(Long id){
+        Optional<UsuarioModel> usuarioPorId = usuarioRepository.findById(id);
+                return usuarioPorId.map(usuarioMapper::map). orElse(null);
     }
 
     public UsuarioDTO creatUser(UsuarioDTO usuarioDTO){
@@ -39,10 +43,13 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public UsuarioModel chengeUser(Long id, UsuarioModel updatedUser){
-        if (usuarioRepository.existsById(id)){
+    public UsuarioDTO chengeUser(Long id, UsuarioDTO usuarioDTO){
+        Optional<UsuarioModel> existingUser = usuarioRepository.findById(id);
+        if (existingUser.isPresent()){
+            UsuarioModel updatedUser = usuarioMapper.map(usuarioDTO);
             updatedUser.setId(id);
-            return usuarioRepository.save(updatedUser);
+            UsuarioModel savedUser = usuarioRepository.save(updatedUser);
+            return usuarioMapper.map(savedUser);
         }
         return null;
     }
