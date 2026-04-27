@@ -1,6 +1,8 @@
 package dev.Marchese.CadastroApi.Chamados;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,19 +15,49 @@ public class ChamadoController {
 
     public ChamadoController (ChamadoService chamadoService) {this.chamdoservice= chamadoService;}
 
-    @GetMapping("/showCalls")
-    public List<ChamadoDTO> showCalls(){return chamdoservice.showCalls();}
+    @GetMapping("/showCall")
+    public ResponseEntity<List<ChamadoDTO>> showCalls(){
+        List<ChamadoDTO> chamadoList = chamdoservice.showCalls();
+        return ResponseEntity.ok(chamadoList);
+    }
 
     @GetMapping("/showCall/{id}")
-    public ChamadoDTO showCallsId(@PathVariable Long id){return  chamdoservice.showCallsId(id);}
+    public ResponseEntity<String> showCallsId(@PathVariable Long id){
+        ChamadoDTO chamadoDTO = chamdoservice.showCallsId(id);
+        if(chamadoDTO != null){
+            chamdoservice.showCallsId(id);
+            return ResponseEntity.ok().body("This is called with id:"+id+"\n"+
+                    "This is called with name:"+chamadoDTO.getName()+"\n"+
+                    "and Description:"+chamadoDTO.getDescription());
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The call with id:" +id + " was not found");
+        }
+    }
 
     @PostMapping("/creatCall")
-    public ChamadoDTO creatCall(@RequestBody ChamadoDTO chamado){return  chamdoservice.creatCall(chamado);}
+    public ResponseEntity<String> creatCall(@RequestBody ChamadoDTO chamado){
+        ChamadoDTO chamadoDTO = chamdoservice.creatCall(chamado);
+    return  ResponseEntity.status(HttpStatus.CREATED).body("The Call with name:"+chamadoDTO.getName()+ " was successfully created");
+    }
 
     @DeleteMapping("/deleteCall/{id}")
-    public void deleteCall(@PathVariable Long id){ chamdoservice.deletCall(id);}
+    public ResponseEntity<String> deleteCall(@PathVariable Long id){
+        if (chamdoservice.showCallsId(id) != null){
+            chamdoservice.deletCall(id);
+            return ResponseEntity.ok().body("The Call with id:"+id+" was successfully deleted");
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The call with id:"+id + " was not found");
+        }
+    }
 
     @PutMapping("/changeCall/{id}")
-    public ChamadoDTO changeCall(@PathVariable Long id, @RequestBody ChamadoDTO updatedCalls){ return chamdoservice.changeCall(id, updatedCalls);}
+    public ResponseEntity<?> changeCall(@PathVariable Long id, @RequestBody ChamadoDTO updatedCalls){
+        ChamadoDTO chamadoDTO = chamdoservice.changeCall(id, updatedCalls);
+        if(chamadoDTO != null){
+            return ResponseEntity.ok(chamadoDTO);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("The call with id:"+id + " was not found");
+        }
+    }
 
 }
